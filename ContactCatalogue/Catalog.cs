@@ -28,6 +28,16 @@ namespace ContactCatalogue
             emailsHashset.Add(contact.Email);
             return true;
         }
+        public void ListContactsByName()
+        {
+            var sorted = contacts.OrderBy(c => c.Value.Name);
+
+            foreach (var contact in sorted)
+            {
+                Console.WriteLine(contact.Value.Name);
+            }
+
+        }
     }
     
 }
