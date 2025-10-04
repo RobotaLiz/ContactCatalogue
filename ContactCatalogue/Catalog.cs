@@ -22,7 +22,7 @@ namespace ContactCatalogue
             if (contacts.ContainsKey(contact.ID) || emailsHashset.Contains(contact.Email))
             {
                 return false; // failed to add contact
-            }
+            } 
 
             contacts.Add(contact.ID, contact);
             emailsHashset.Add(contact.Email);
@@ -38,6 +38,16 @@ namespace ContactCatalogue
             }
 
         }
+        public void SearchByName(string search)
+        {
+            var result = contacts.Where(s => s.Value.Name.Contains(search));
+
+            foreach(var keyValue in result )
+            {
+                Console.WriteLine($"Namn hittad vid sökning: { keyValue.Value.Name}");
+            }
+        }
+        
     }
     
 }
