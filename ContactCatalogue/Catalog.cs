@@ -47,6 +47,17 @@ namespace ContactCatalogue
                 Console.WriteLine($"Namn hittad vid sökning: { keyValue.Value.Name}");
             }
         }
+        public void SearchByTag(string tag)
+        {
+            var FoundTag = contacts.OrderBy(t => t.Value.Tags)
+                .Where(t => t.Value.Tags.Contains(tag));
+            Console.WriteLine("Search result by tag");
+            foreach(var kvp in FoundTag)
+            {
+                Console.WriteLine($"\tNamn:{kvp.Value.Name} Tag:{kvp.Value.Tags}  ");
+            }
+            
+        }
         
     }
     
