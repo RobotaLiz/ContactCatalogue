@@ -54,8 +54,10 @@ namespace ContactCatalogue
                             if (Catalog.TryAddContact(contact))
                             {
                                 Console.WriteLine("Kontakt tillagd!");
-                                break;
-
+                            }
+                            else
+                            {
+                                Console.WriteLine("Kontakten existerar redan!");
                             }
 
                             break;

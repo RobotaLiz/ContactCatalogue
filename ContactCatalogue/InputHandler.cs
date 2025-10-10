@@ -40,9 +40,28 @@ namespace ContactCatalogue
                     Console.WriteLine("Skriv in EmailAdress:");
                     var emailInput = Console.ReadLine();
                     var email = new System.Net.Mail.MailAddress(emailInput!); // the constuctor throws an exception if the email is invalid.
-                    return email.Address;
+                    var checkInvalidCharacter = new List<char>
+                    {
+                        'å','ä','ö'
+                    };
+                    foreach (var c in checkInvalidCharacter)
+                    {
+                        if (email.Address.Contains(c))
+                        {
+                            throw new InvalidEmailException($"{c} - is invalid when user write with å,ä,ö");
+                        }
+                    }
+                    return email.Address.ToLower();
                 }
-                catch { Console.WriteLine("Fel inmatning av email, prova igen"); }
+                catch (InvalidEmailException)
+                {
+                    Console.WriteLine("(å,ä,ö) är ej tillåten inmatning, prova igen");
+                }
+
+                catch
+                {
+                    Console.WriteLine("Fel inmatning av email, prova igen");
+                }
 
 
             }
