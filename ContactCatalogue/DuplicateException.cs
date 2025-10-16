@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ContactCatalogue
 {
-    public class InvalidEmailException : Exception
+    public class DuplicateException : Exception 
     {
-        public InvalidEmailException(string message) :base(message)
-           
+        public DuplicateException(string message) :base(message)
         {
-            
+
         }
     }
 }
