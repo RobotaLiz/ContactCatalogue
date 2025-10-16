@@ -23,9 +23,10 @@ namespace ContactCatalogue
                 Console.WriteLine("   -----MENY-----");
                 Console.WriteLine("Välj ett alternativ?");
                 Console.WriteLine("1, Lägg till kontakt");
-                Console.WriteLine("2, Sök namn");
-                Console.WriteLine("3, sök tagg");
+                Console.WriteLine("2, Sök kontakt med email eller namn");
+                Console.WriteLine("3, Sök kontakt med tagg");
                 Console.WriteLine("4, Lista alla kontakter");
+                Console.WriteLine("5, Exportera till CSV-fil");
 
 
                 var input = Console.ReadLine();
@@ -39,14 +40,11 @@ namespace ContactCatalogue
 
 
                             Console.WriteLine("Lägg till kontakt\n");
-                            Console.WriteLine("Namn:");
+                            Console.Write("Namn: ");
                             var name = Console.ReadLine();
-                            Console.WriteLine("ID:");
                             var idInput = InputHandler.GetId();
-
-                            Console.WriteLine("E-post");
                             var email = InputHandler.GetEmail();
-                            Console.WriteLine("Taggar");
+                            Console.Write("Taggar: ");
                             var tags = Console.ReadLine();
 
                             var contact = new Contact(idInput, name, email, tags);
@@ -63,17 +61,22 @@ namespace ContactCatalogue
                             break;
 
                         case 2:
-                            Console.WriteLine("Söka kontakt");
+                            Console.Write("Ange email eller namn: ");
                             Catalog.SearchByNameOrEmail(Console.ReadLine());
 
                             break;
                         case 3:
-                            Console.WriteLine("Söka efter tagg");
+                            Console.Write("Söka efter tagg: ");
                             Catalog.SearchByTag(Console.ReadLine());
                             break;
                         case 4:
-                            Console.WriteLine("Lista alla kontakter");
+                            Console.Write("Lista alla kontakter: ");
                             Catalog.ListContactsByName();
+                            break;
+
+                        case 5:
+                            Console.WriteLine("Exportera till CSV-fil");
+                            Catalog.ExportCsvFile();
                             break;
 
 
@@ -88,6 +91,7 @@ namespace ContactCatalogue
                     Console.Clear();
                     Console.WriteLine($"Inmatning felaktig ({input}), Vänligen försök igen.\n"); // If the input is not an interger. 
                 }
+
             }
         }
     }
