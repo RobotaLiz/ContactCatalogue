@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,16 +19,27 @@ namespace ContactCatalogue
 
         public bool TryAddContact(Contact contact)
         {
-            
-             if (contact == null)
+
+            if (contact == null)
             {
                 return false;
             }
             // Controlling if Id or email already exist
             if (contacts.ContainsKey(contact.ID) || emailsHashset.Contains(contact.Email))
             {
-                return false; // failed to add contact, it already exist!
-            } 
+                try
+                {
+                    throw new DuplicateException("This id or Email already exist.");
+                }
+                catch
+                {
+                    Console.WriteLine("Denna email eller id finns redan");
+                    return false;
+
+                }
+
+
+            }
 
             contacts.Add(contact.ID, contact);
             emailsHashset.Add(contact.Email);
@@ -41,19 +53,19 @@ namespace ContactCatalogue
             {
 
                 Console.WriteLine($"{contact.Value.Name} - Id: ({contact.Value.ID}) - <{contact.Value.Email}> - taggar: [{contact.Value.Tags}]");
-               
+
             }
 
         }
         public void SearchByNameOrEmail(string search)
         {
-            var result = contacts.Where(s => 
+            var result = contacts.Where(s =>
             s.Value.Name.Contains(search, StringComparison.OrdinalIgnoreCase) || s.Value.Email.Contains(search, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(c => c.Value.Name);
 
-            foreach(var keyValue in result )
+            foreach (var keyValue in result)
             {
-                Console.WriteLine($"Hittade namn: { keyValue.Value.Name} - Email: ({keyValue.Value.Email}) - Taggar: {keyValue.Value.Tags}");
+                Console.WriteLine($"Hittade namn: {keyValue.Value.Name} - Email: ({keyValue.Value.Email}) - Taggar: {keyValue.Value.Tags}");
 
             }
         }
@@ -63,17 +75,17 @@ namespace ContactCatalogue
                 .Where(t => t.Value.Tags.Contains(tag, StringComparison.OrdinalIgnoreCase)).ToList();
 
             Console.WriteLine("Sökresultat via tag ");
-            foreach(var kvp in FoundTag)
+            foreach (var kvp in FoundTag)
             {
                 Console.WriteLine($"\tNamn: {kvp.Value.Name} Email: {kvp.Value.Email} Tag: {kvp.Value.Tags}  ");
             }
-            
+
         }
         public void ExportCsvFile()
         {
             var sBuilder = new StringBuilder();
             sBuilder.AppendLine("Id,Name,Email,Tags"); // Create the header for the CVS-file
-            foreach(var c in contacts)
+            foreach (var c in contacts)
             {
                 sBuilder.AppendLine($"{c.Value.ID},{c.Value.Name},{c.Value.Email},{c.Value.Tags}");
 
@@ -83,8 +95,8 @@ namespace ContactCatalogue
             Console.WriteLine("Alla kontankter är exporterade till C:\\CSV\\Contacts.csv");
 
         }
-        
+
     }
-    
+
 }
 
