@@ -42,7 +42,7 @@ namespace ContactCatalogue
                     var email = new System.Net.Mail.MailAddress(emailInput!); // the constuctor throws an exception if the email is invalid.
                     var checkInvalidCharacter = new List<char>
                     {
-                        'å','ä','ö'
+                        'å','ä','ö','Å','Ä','Ö'
                     };
                     foreach (var c in checkInvalidCharacter)
                     {
