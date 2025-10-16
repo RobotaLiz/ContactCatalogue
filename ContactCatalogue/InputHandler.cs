@@ -14,7 +14,7 @@ namespace ContactCatalogue
             while (true)
             {
 
-                Console.WriteLine("Skriv in ett Id:");
+                Console.Write("Skriv in ett id: ");
                 var idInput = Console.ReadLine();
                 if (int.TryParse(idInput, out int id))
                 {
@@ -37,7 +37,7 @@ namespace ContactCatalogue
                 try
                 {
 
-                    Console.WriteLine("Skriv in EmailAdress:");
+                    Console.Write("Skriv in email: ");
                     var emailInput = Console.ReadLine();
                     var email = new System.Net.Mail.MailAddress(emailInput!); // the constuctor throws an exception if the email is invalid.
                     var checkInvalidCharacter = new List<char>
