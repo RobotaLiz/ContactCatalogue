@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace ContactCatalogue
 {
     public static class InputHandler
     {
+
+        public static ILogger Logger {get; set;}
 
         public static int GetId()
         {
@@ -53,13 +56,15 @@ namespace ContactCatalogue
                     }
                     return email.Address.ToLower();
                 }
-                catch (InvalidEmailException)
+                catch (InvalidEmailException ex)
                 {
+                    Logger.LogError(ex,"Invalid characters");
                     Console.WriteLine("(å,ä,ö) är ej tillåten inmatning, prova igen");
                 }
 
-                catch
+                catch(Exception ex)
                 {
+                    Logger.LogError(ex,"Invalid email");
                     Console.WriteLine("Fel inmatning av email, prova igen");
                 }
 

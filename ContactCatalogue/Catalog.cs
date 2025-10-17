@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -11,6 +12,13 @@ namespace ContactCatalogue
 {
     public class Catalog
     {
+         ILogger Logger;
+
+        public Catalog (ILogger logger)
+        {
+            Logger = logger;
+        }
+
 
         Dictionary<int, Contact> contacts = new Dictionary<int, Contact> { };
         HashSet<string> emailsHashset = new HashSet<string> { };
@@ -33,6 +41,7 @@ namespace ContactCatalogue
                 }
                 catch
                 {
+                    Logger.LogError("Invalid email or id, already exist");
                     Console.WriteLine("Denna email eller id finns redan");
                     return false;
 
@@ -85,17 +94,35 @@ namespace ContactCatalogue
         {
             var sBuilder = new StringBuilder();
             sBuilder.AppendLine("Id,Name,Email,Tags"); // Create the header for the CVS-file
+
+            if (contacts.Count == 0)
+            {
+                Logger.LogInformation("User tried to export an empty contact list");
+                return;
+            }
+
             foreach (var c in contacts)
             {
                 sBuilder.AppendLine($"{c.Value.ID},{c.Value.Name},{c.Value.Email},{c.Value.Tags}");
 
-
             }
-            File.WriteAllText("C:\\CSV\\Contacts.csv", sBuilder.ToString());
-            Console.WriteLine("Alla kontankter är exporterade till C:\\CSV\\Contacts.csv");
+            var path = "C:\\CSV\\Contacts.csv";
+            try
+            {
+              File.WriteAllText(path, sBuilder.ToString());
+              Logger.LogInformation("CSV-file added to disk");
+              Console.WriteLine($"Alla kontankter är exporterade till {path}");
+            }
+            catch(Exception ex)
+            {
+                Logger.LogError(ex,$"Could not write file to {path} ");
+            }
+            
+           
+
 
         }
-
+       
     }
 
 }
