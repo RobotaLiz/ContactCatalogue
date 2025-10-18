@@ -11,13 +11,10 @@ namespace ContactCatalogue
             ILogger logger = loggerFactory.CreateLogger<Program>();
 
             InputHandler.Logger = logger;
-            var menu = new Menu(new Catalog(logger));
+            IContactRepository repository = new ContactRepository(logger);
+            Catalog catalog = new Catalog(logger,repository);
+            var menu = new Menu(catalog);
             menu.ShowMenu();
-
-
-         
-
-
         }
     }
 }
