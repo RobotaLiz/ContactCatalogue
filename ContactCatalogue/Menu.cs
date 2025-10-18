@@ -71,7 +71,14 @@ namespace ContactCatalogue
                             break;
                         case 4:
                             Console.Write("Lista alla kontakter: ");
-                            Catalog.ListContactsByName();
+                            var sorted = Catalog.ListContactsByName();
+                            Console.Clear();
+                            foreach (var c in sorted)
+                            {
+
+                                Console.WriteLine($"{c.Name} - Id: ({c.ID}) - <{c.Email}> - taggar: [{c.Tags}]");
+
+                            }
                             break;
 
                         case 5:
