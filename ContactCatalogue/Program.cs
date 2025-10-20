@@ -14,7 +14,7 @@ namespace ContactCatalogue
 
             InputHandler.Logger = logger;
             IContactRepository repository = new ContactRepository(logger);
-            //IContactRepository repository = new DatabaseRepository();
+
             CatalogService catalog = new CatalogService(logger,repository);
             var menu = new Menu(catalog);
             menu.ShowMenu();
