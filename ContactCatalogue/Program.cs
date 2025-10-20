@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ContactCatalogue.Handlers;
+using ContactCatalogue.Repositories;
+using Microsoft.Extensions.Logging;
 
 
 namespace ContactCatalogue
@@ -12,7 +14,8 @@ namespace ContactCatalogue
 
             InputHandler.Logger = logger;
             IContactRepository repository = new ContactRepository(logger);
-            Catalog catalog = new Catalog(logger,repository);
+            //IContactRepository repository = new DatabaseRepository();
+            CatalogService catalog = new CatalogService(logger,repository);
             var menu = new Menu(catalog);
             menu.ShowMenu();
         }

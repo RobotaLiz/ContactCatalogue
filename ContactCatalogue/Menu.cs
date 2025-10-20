@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ContactCatalogue.Handlers;
+using ContactCatalogue.Models;
 
 namespace ContactCatalogue
 {
     public class Menu
     {
-        public Catalog Catalog { get; set; }
+        public CatalogService Catalog { get; set; }
 
-        public Menu(Catalog catalog)
+        public Menu(CatalogService catalog)
         {
             Catalog = catalog;
         }

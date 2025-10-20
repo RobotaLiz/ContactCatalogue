@@ -1,21 +1,17 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
+﻿using ContactCatalogue.Models;
+using ContactCatalogue.Repositories;
+using Microsoft.Extensions.Logging;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace ContactCatalogue
 {
-    public class Catalog
+    public class CatalogService
     {
         ILogger Logger;
         IContactRepository Repository;
 
-        public Catalog(ILogger logger,IContactRepository repository)
+        public CatalogService(ILogger logger, IContactRepository repository)
         {
             Logger = logger;
             Repository = repository;
