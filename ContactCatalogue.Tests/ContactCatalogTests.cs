@@ -1,9 +1,11 @@
+using ContactCatalogue.Models;
+using ContactCatalogue.Repositories;
 using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace ContactCatalogue.Tests
 {
-    public class UnitTest1
+    public class ContactCatalogTests
     {
         [Fact]
         public void Can_Add_Contact()
@@ -12,7 +14,7 @@ namespace ContactCatalogue.Tests
             using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             ILogger logger = loggerFactory.CreateLogger<Program>();
             IContactRepository repository = new ContactRepository(logger);
-            var catalogue = new Catalog(logger, repository);
+            var catalogue = new CatalogService(logger, repository);
 
             // Act
             var c1 = new Contact(123,"Bertil","Bertil@hotmail.com","Programmerare");
@@ -28,7 +30,7 @@ namespace ContactCatalogue.Tests
             using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             ILogger logger = loggerFactory.CreateLogger<Program>();
             IContactRepository repository = new ContactRepository(logger);
-            var catalogue = new Catalog(logger, repository);
+            var catalogue = new CatalogService(logger, repository);
 
 
             var c1 = new Contact(123, "Bertil", "Bertil@hotmail.com", "Programmerare");
@@ -44,7 +46,7 @@ namespace ContactCatalogue.Tests
             using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             ILogger logger = loggerFactory.CreateLogger<Program>();
             IContactRepository repository = new ContactRepository(logger);
-            var catalogue = new Catalog(logger, repository);
+            var catalogue = new CatalogService(logger, repository);
 
             var z1 = new Contact(123, "Zelda", "adam@hotmail.com", "Programmerare");
             var c1 = new Contact(126, "Adam", "zelda@hotmail.com", "Programmerare");
@@ -70,11 +72,11 @@ namespace ContactCatalogue.Tests
             var mock = new Mock<IContactRepository>();
             mock.Setup(r => r.GetAll()).Returns(new[]
             {
-                new Contact(123, "Zelda", "adam@hotmail.com", "Programmerare"),
-                new Contact(126, "Adam", "zelda@hotmail.com", "Worker")
+                new Contact(123, "Zelda", "zelda@hotmail.com", "Programmerare"),
+                new Contact(126, "Adam", "adam@hotmail.com", "Worker")
             });
 
-            var catalog = new Catalog(logger,mock.Object);
+            var catalog = new CatalogService(logger, mock.Object);
             var result = catalog.SearchByTag("Programmerare").ToList();
 
             Assert.Single(result);
