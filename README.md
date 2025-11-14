@@ -83,6 +83,9 @@ Taggar: Skoter
 Kontakt tillagd!
 ```
 
+### Example run with image proof exporting csv file
+![Alt text](/images/example_run.png?raw=true "Example run")
+
 ## Design-Choices
 
 First of all I have tried to put all the files in their correct folders in the application, and I have also tried to support depencency injection  - a ContactRepositoryDb can be implemented through IContactRepository, that then could be replaced in program.
