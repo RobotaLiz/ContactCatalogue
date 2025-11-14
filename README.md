@@ -84,7 +84,7 @@ Kontakt tillagd!
 ```
 
 ### Example run with image proof exporting csv file
-![Alt text](/images/example_run.png?raw=true "Example run")
+![Alt text](images/example_run.png?raw=true "Example run")
 
 ## Design-Choices
 
